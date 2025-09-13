@@ -47,7 +47,10 @@ public class GeneradorTiquetes
      */
     public static void registrarTiquete( Tiquete unTiquete )
     {
-        // TODO implementar
+        if (unTiquete.esUsado()) {
+        	String codigo = unTiquete.getCodigo();
+        	codigos.add(codigo);
+        }
     }
 
     /**
@@ -57,7 +60,7 @@ public class GeneradorTiquetes
      */
     public static boolean validarTiquete( String codigoTiquete )
     {
-        // TODO implementar
-        return false;
+    	//pero existe donde? en el set o en algun otro lado? no entiendo
+        return codigos.contains( codigoTiquete );
     }
 }
