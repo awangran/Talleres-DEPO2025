@@ -20,12 +20,13 @@ public class Vuelo {
 	
 	private Map<String, Tiquete> tiquetes;
 	
-	public Vuelo(Ruta ruta,
-			java.lang.String fecha,
-			Avion avion) {
-		
-		tiquetes = new HashMap<String, Tiquete>();
+	public Vuelo(Ruta ruta, String fecha, Avion avion) {
+	    this.ruta = ruta;
+	    this.fecha = fecha;
+	    this.avion = avion;
+	    this.tiquetes = new HashMap<String, Tiquete>();
 	}
+
 	
 	public Ruta getRuta() {
 		return this.ruta;
@@ -40,14 +41,19 @@ public class Vuelo {
 	}
 	
 	//porque me lo pide como collection si arriba lo tengo como map? lo deje como mapa mientras
-	public java.util.Collection<Tiquete> getTiquetes()
-	{
-		return (Collection<Tiquete>) this.tiquetes;
+	public Collection<Tiquete> getTiquetes() {
+	    return this.tiquetes.values();
 	}
+
 	
-	public boolean equals​(java.lang.Object obj) {
-		return false; //TODO
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (obj == null || getClass() != obj.getClass()) return false;
+	    Vuelo vuelo = (Vuelo) obj;
+	    return fecha.equals(vuelo.fecha) && ruta.equals(vuelo.ruta);
 	}
+
 
 	public int venderTiquetes​(Cliente cliente,
 			CalculadoraTarifas calculadora,

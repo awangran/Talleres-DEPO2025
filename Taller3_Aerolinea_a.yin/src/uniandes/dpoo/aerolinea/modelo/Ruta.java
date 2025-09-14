@@ -20,11 +20,17 @@ public class Ruta
 
 	
 	public Ruta(Aeropuerto origen,
-			Aeropuerto destino,
-			java.lang.String horaSalida,
-			java.lang.String horaLlegada,
-			java.lang.String codigoRuta) {
-	};
+	        Aeropuerto destino,
+	        String horaSalida,
+	        String horaLlegada,
+	        String codigoRuta) {
+	    this.origen = origen;
+	    this.destino = destino;
+	    this.horaSalida = horaSalida;
+	    this.horaLlegada = horaLlegada;
+	    this.codigoRuta = codigoRuta;
+	}
+
 
 	public java.lang.String getCodigoRuta(){
 		return this.codigoRuta;
@@ -47,17 +53,16 @@ public class Ruta
 	}
 	
 	public int getDuracion() {
-		
-        LocalTime horaSalida = LocalTime.of(getHoras(this.horaSalida), getMinutos(this.horaSalida)); 
-        LocalTime horaLlegada = LocalTime.of(getHoras(this.horaLlegada), getMinutos(this.horaLlegada));
+	    LocalTime salida = LocalTime.of(getHoras(this.horaSalida), getMinutos(this.horaSalida));
+	    LocalTime llegada = LocalTime.of(getHoras(this.horaLlegada), getMinutos(this.horaLlegada));
 
-        Duration duration = Duration.between(horaSalida, horaLlegada);
+	    Duration duration = Duration.between(salida, llegada);
+	    if (duration.isNegative()) {
+	        duration = duration.plusDays(1);
+	    }
+	    return (int) duration.toMinutes();
+	}
 
-        int minutes = (int) duration.toMinutes();
-        
-        return minutes;
-
-	};
 
     
     public static int getMinutos( String horaCompleta )
