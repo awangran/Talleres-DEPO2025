@@ -151,45 +151,45 @@ public class PersistenciaTiquetesJson implements IPersistenciaTiquetes
      * @throws InformacionInconsistenteTiqueteException Lanza esta excepción si la información de alguno de los tiquetes no es consistente con el resto de elementos de la
      *         aerolínea (ej. es un tiquete para un vuelo que no existe, o fue comprado por un cliente que no existe, etc.)
      */
-    private void cargarTiquetes( Aerolinea aerolinea, JSONArray jTiquetes ) throws InformacionInconsistenteTiqueteException
-    {
-        int numTiquetes = jTiquetes.length( );
-        for( int i = 0; i < numTiquetes; i++ )
-        {
-            JSONObject tiquete = jTiquetes.getJSONObject( i );
+    private void cargarTiquetes(Aerolinea aerolinea, JSONArray jTiquetes) throws InformacionInconsistenteTiqueteException {
+        int numTiquetes = jTiquetes.length();
+        for (int i = 0; i < numTiquetes; i++) {
+            JSONObject tiquete = jTiquetes.getJSONObject(i);
 
             // Extraer y validar la información del tiquete
-            String codigoRuta = tiquete.getString( CODIGO_RUTA );
-            Ruta laRuta = aerolinea.getRuta( codigoRuta );
-            if( laRuta == null )
-                throw new InformacionInconsistenteTiqueteException( "ruta", codigoRuta );
+            String codigoRuta = tiquete.getString("codigoRuta");  // debe coincidir con tu JSON
+            Ruta laRuta = aerolinea.getRuta(codigoRuta);
+            if (laRuta == null)
+                throw new InformacionInconsistenteTiqueteException("ruta", codigoRuta);
 
-            String fechaVuelo = tiquete.getString( FECHA );
-            Vuelo elVuelo = aerolinea.getVuelo( codigoRuta, fechaVuelo );
-            if( elVuelo == null )
-                throw new InformacionInconsistenteTiqueteException( "vuelo", codigoRuta + " en " + fechaVuelo );
+            String fechaVuelo = tiquete.getString("fecha");
+            Vuelo elVuelo = aerolinea.getVuelo(codigoRuta, fechaVuelo);
+            if (elVuelo == null)
+                throw new InformacionInconsistenteTiqueteException("vuelo", codigoRuta + " en " + fechaVuelo);
 
-            String codigoTiquete = tiquete.getString( CODIGO_TIQUETE );
-            boolean existe = GeneradorTiquetes.validarTiquete( codigoTiquete );
+            String codigoTiquete = tiquete.getString("codigoTiquete");
+            if (GeneradorTiquetes.validarTiquete(codigoTiquete))
+                throw new InformacionInconsistenteTiqueteException("tiquete", codigoTiquete, false);
 
-            if( existe )
-                throw new InformacionInconsistenteTiqueteException( "tiquete", codigoTiquete, false );
+            int tarifa = tiquete.getInt("tarifa");
+            boolean tiqueteUsado = tiquete.getBoolean("usado");
 
-            int tarifa = tiquete.getInt( TARIFA );
-            boolean tiqueteUsado = tiquete.getBoolean( USADO );
-
-            String identificadorCliente = tiquete.getString( CLIENTE );
-            Cliente elCliente = aerolinea.getCliente( identificadorCliente );
-            if( elCliente == null )
-                throw new InformacionInconsistenteTiqueteException( "cliente", identificadorCliente );
+            String identificadorCliente = tiquete.getString("cliente");
+            Cliente elCliente = aerolinea.getCliente(identificadorCliente);
+            if (elCliente == null)
+                throw new InformacionInconsistenteTiqueteException("cliente", identificadorCliente);
 
             // Construir y registrar el tiquete
-            Tiquete nuevoTiquete = new Tiquete( codigoTiquete, elVuelo, elCliente, tarifa );
-            if( tiqueteUsado )
-                nuevoTiquete.marcarComoUsado( );
-            GeneradorTiquetes.registrarTiquete( nuevoTiquete );
+            Tiquete nuevoTiquete = new Tiquete(codigoTiquete, elVuelo, elCliente, tarifa);
+            if (tiqueteUsado)
+                nuevoTiquete.marcarComoUsado();
+
+            GeneradorTiquetes.registrarTiquete(nuevoTiquete);
+            elCliente.agregarTiquete(nuevoTiquete);
+            elVuelo.agregarTiquete(nuevoTiquete); // método que debes crear
         }
     }
+
 
     /**
      * Salva la información de los tiquetes de la aerolínea dentro del objeto json que se recibe por parámetro.

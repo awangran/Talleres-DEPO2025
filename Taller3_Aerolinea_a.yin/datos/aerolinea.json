@@ -1,0 +1,40 @@
+{
+  "aviones": [
+    {
+      "nombre": "AirbusA1",
+      "capacidad": 150
+    }
+  ],
+  "aeropuertos": [
+    {
+      "codigo": "BOG",
+      "nombre": "El Dorado",
+      "ciudad": "Bogotá",
+      "lat": 4.701,
+      "lon": -74.146
+    },
+    {
+      "codigo": "MDE",
+      "nombre": "José María Córdova",
+      "ciudad": "Medellín",
+      "lat": 6.164,
+      "lon": -75.423
+    }
+  ],
+  "rutas": [
+    {
+      "codigoRuta": "BOG-MDE",
+      "origen": "BOG",
+      "destino": "MDE",
+      "horaSalida": "0800",
+      "horaLlegada": "0900"
+    }
+  ],
+  "vuelos": [
+    {
+      "fecha": "2025-09-20",
+      "codigoRuta": "BOG-MDE",
+      "avion": "AirbusA1"
+    }
+  ]
+}

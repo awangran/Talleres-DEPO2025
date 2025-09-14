@@ -82,6 +82,9 @@ public class Vuelo {
 	    return total;
 	}
 
+	public void agregarTiquete(Tiquete t) {
+	    this.tiquetes.put(t.getCodigo(), t);
+	}
 	
 	
 }
