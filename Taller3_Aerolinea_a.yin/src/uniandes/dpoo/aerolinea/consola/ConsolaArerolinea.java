@@ -6,40 +6,53 @@ import uniandes.dpoo.aerolinea.exceptions.InformacionInconsistenteException;
 import uniandes.dpoo.aerolinea.modelo.Aerolinea;
 import uniandes.dpoo.aerolinea.persistencia.CentralPersistencia;
 import uniandes.dpoo.aerolinea.persistencia.TipoInvalidoException;
+import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
 
 public class ConsolaArerolinea extends ConsolaBasica
 {
     private Aerolinea unaAerolinea;
 
-    /**
-     * Es un método que corre la aplicación y realmente no hace nada interesante: sólo muestra cómo se podría utilizar la clase Aerolínea para hacer pruebas.
-     */
     public void correrAplicacion( )
     {
         try
         {
-            unaAerolinea = new Aerolinea( );
-            // String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de una aerolinea" );
-            String archivo = "tiquetes.json"; 
-            unaAerolinea.cargarTiquetes( "./datos/" + archivo, CentralPersistencia.JSON );
+            unaAerolinea = new Aerolinea();
+
+            // Archivos de prueba
+            String archivoAerolinea = "./datos/aerolinea.json";
+            String archivoTiquetes = "./datos/tiquetes.json";
+
+            // 1. Cargar aerolínea
+            unaAerolinea.cargarAerolinea(archivoAerolinea, CentralPersistencia.JSON);
+            System.out.println("Aerolinea cargada con éxito.");
+            System.out.println("Rutas cargadas:");
+            unaAerolinea.getRutas().forEach(r -> 
+                System.out.println(" - " + r.getCodigoRuta() + " (" + r.getOrigen().getNombre() + " -> " + r.getDestino().getNombre() + ")")
+            );
+
+            // 2. Cargar tiquetes
+            unaAerolinea.cargarTiquetes(archivoTiquetes, CentralPersistencia.JSON);
+            System.out.println("Tiquetes cargados: " + unaAerolinea.getTiquetes().size());
+
+            // 3. Mostrar detalle de tiquetes cargados
+            for (Tiquete t : unaAerolinea.getTiquetes()) {
+                System.out.println("Tiquete " + t.getCodigo()
+                        + " | Cliente: " + t.getCliente().getIdentificador()
+                        + " | Ruta: " + t.getVuelo().getRuta().getCodigoRuta()
+                        + " | Fecha: " + t.getVuelo().getFecha()
+                        + " | Usado: " + t.esUsado());
+            }
+
         }
-        catch( TipoInvalidoException e )
-        {
-            e.printStackTrace( );
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
-        }
-        catch( InformacionInconsistenteException e )
+        catch (TipoInvalidoException | IOException | InformacionInconsistenteException e)
         {
             e.printStackTrace();
         }
     }
 
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        ConsolaArerolinea ca = new ConsolaArerolinea( );
-        ca.correrAplicacion( );
+        ConsolaArerolinea ca = new ConsolaArerolinea();
+        ca.correrAplicacion();
     }
 }
