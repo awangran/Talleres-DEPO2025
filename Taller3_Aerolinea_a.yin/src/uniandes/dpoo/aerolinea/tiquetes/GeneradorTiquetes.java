@@ -47,10 +47,7 @@ public class GeneradorTiquetes
      */
     public static void registrarTiquete( Tiquete unTiquete )
     {
-        if (unTiquete.esUsado()) {
-        	String codigo = unTiquete.getCodigo();
-        	codigos.add(codigo);
-        }
+    	codigos.add(unTiquete.getCodigo());
     }
 
     /**

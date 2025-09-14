@@ -15,18 +15,14 @@ public class Tiquete {
 	
 	private boolean usado;
 	
-	public Tiquete(java.lang.String codigo, Vuelo vuelo, Cliente clienteComprador, int tarifa) {
-		
-		clienteComprador = this.cliente;
-		
-		vuelo = this.vuelo;
-		
-		codigo = this.codigo;
-		
-		tarifa = this.tarifa;
-		
-		
-	};
+	public Tiquete(String codigo, Vuelo vuelo, Cliente clienteComprador, int tarifa) {
+	    this.cliente = clienteComprador;
+	    this.vuelo = vuelo;
+	    this.codigo = codigo;
+	    this.tarifa = tarifa;
+	    this.usado = false;
+	}
+
 	
 	public Cliente getCliente() {
 		return this.cliente;

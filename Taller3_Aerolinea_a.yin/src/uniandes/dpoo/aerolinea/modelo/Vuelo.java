@@ -63,7 +63,7 @@ public class Vuelo {
 	    int capacidad = avion.getCapacidad();
 
 	    if (vendidos + cantidad > capacidad) {
-	        throw new VueloSobrevendidoException("El vuelo está sobrevendido");
+	        throw new VueloSobrevendidoException(this);
 	    }
 
 	    int total = 0;
