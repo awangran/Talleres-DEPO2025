@@ -21,7 +21,7 @@ public class Restaurante
     /**
      * La ruta a la carpeta donde se almacenan las facturas
      */
-    private static final String CARPETA_FACTURAS = "./facturas/";
+    private static final String CARPETA_FACTURAS = "./data/facturas/";
 
     /**
      * La primera parte del nombre de los archivos de facturas

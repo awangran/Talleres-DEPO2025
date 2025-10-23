@@ -52,5 +52,11 @@ public class ProductoMenu implements Producto
 
         return sb.toString( );
     }
+    
+    @Override
+    public String toString() {
+        return nombre + precioBase; 
+    }
+
 
 }

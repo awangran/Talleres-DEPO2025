@@ -33,7 +33,16 @@ public class ProductoAjustado implements Producto
         eliminados = new ArrayList<Ingrediente>( );
     }
 
-    @Override
+    public ArrayList<Ingrediente> getAgregados() {
+		return agregados;
+	}
+
+
+	public ArrayList<Ingrediente> getEliminados() {
+		return eliminados;
+	}
+
+	@Override
     public String getNombre( )
     {
         return productoBase.getNombre( );

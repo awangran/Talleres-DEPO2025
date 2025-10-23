@@ -72,6 +72,15 @@ public class Pedido
     {
         return nombreCliente;
     }
+    
+    public ArrayList<Producto> getProductos( )
+    {
+        return productos;
+    }
+
+    public static void reiniciarContador() {
+        numeroPedidos = 0; //solo para testss
+    }
 
     /**
      * Agrega un nuevo producto al pedido
