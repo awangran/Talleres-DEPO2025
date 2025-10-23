@@ -1,8 +1,0 @@
-Cliente: Ashlee
-Dirección: Calle 2
-----------------
-corral14000            14000
-----------------
-Precio Neto:  14000
-IVA:          2660
-Precio Total: 16660
