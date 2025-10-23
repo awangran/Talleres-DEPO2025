@@ -1,4 +1,5 @@
 corral;14000
+corral;14000
 corral queso;16000
 corral pollo;15000
 corralita;13000
@@ -9,7 +10,6 @@ casera;23000
 mexicana;22000
 criolla;22000
 costeña;20000
-criolla;22000
 hawaiana;20000
 wrap de pollo;15000
 wrap de lomo;22000

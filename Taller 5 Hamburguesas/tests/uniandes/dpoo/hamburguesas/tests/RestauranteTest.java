@@ -175,30 +175,37 @@ public class RestauranteTest {
     @Test
     void testIngredienteRepetido() throws IOException {
         Restaurante r = new Restaurante();
-        File archivo = new File("./data/ingredientes_repetidos.txt"); 
+        File archivo = new File("./data/ingredientes_repetidos.txt");
 
         assertThrows(IngredienteRepetidoException.class, () -> {
-            r.cargarInformacionRestaurante(archivo, new File("./data/menu.txt"), new File("./data/combos.txt"));
+            r.cargarIngredientes(archivo); 
         });
     }
-
+    
     @Test
     void testProductoRepetido() throws IOException {
         Restaurante r = new Restaurante();
-        File archivo = new File("./data/menu_repetido.txt"); 
+        File archivo = new File("./data/menu_repetido.txt");
 
         assertThrows(ProductoRepetidoException.class, () -> {
-            r.cargarInformacionRestaurante(new File("./data/ingredientes.txt"), archivo, new File("./data/combos.txt"));
+            r.cargarMenu(archivo); 
         });
     }
-
+    
     @Test
-    void testComboConProductoFaltante() throws IOException {
+    void testComboConProductoFaltante() throws IOException, IngredienteRepetidoException, ProductoRepetidoException {
         Restaurante r = new Restaurante();
-        File archivo = new File("./data/combos_producto_faltante.txt"); 
+
+        r.cargarIngredientes(new File("./data/ingredientes.txt"));
+        r.cargarMenu(new File("./data/menu.txt")); 
+
+        File archivo = new File("./data/combos_producto_faltante.txt");
 
         assertThrows(ProductoFaltanteException.class, () -> {
-            r.cargarInformacionRestaurante(new File("./data/ingredientes.txt"), new File("./data/menu.txt"), archivo);
+            r.cargarCombos(archivo); 
         });
     }
+
+
+
 }
