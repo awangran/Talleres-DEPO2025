@@ -1,6 +1,5 @@
 package uniandes.dpoo.swing.interfaz.agregar;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JComboBox;
@@ -28,17 +27,33 @@ public class PanelEditarRestaurante extends JPanel
 
     public PanelEditarRestaurante( )
     {
+        setLayout( new GridLayout( 3, 2 ) );
+        
         // Crea el campo para el nombre con una etiqueta al frente
-        // TODO completar
+        JLabel labNombre = new JLabel( "Nombre:" );
+        txtNombre = new JTextField( 20 );
+        add( labNombre );
+        add( txtNombre );
 
         // Crea el selector para la calificación con una etiqueta al frente
-        // TODO completar
+        JLabel labCalificacion = new JLabel( "Calificación:" );
+        cbbCalificacion = new JComboBox<String>( );
+        cbbCalificacion.addItem( "1" );
+        cbbCalificacion.addItem( "2" );
+        cbbCalificacion.addItem( "3" );
+        cbbCalificacion.addItem( "4" );
+        cbbCalificacion.addItem( "5" );
+        add( labCalificacion );
+        add( cbbCalificacion );
 
         // Crea el selector para indicar si ya ha sido visitado, con una etiqueta al frente
-        // TODO completar
+        JLabel labVisitado = new JLabel( "Visitado:" );
+        cbbVisitado = new JComboBox<String>( );
+        cbbVisitado.addItem( "Si" );
+        cbbVisitado.addItem( "No" );
+        add( labVisitado );
+        add( cbbVisitado );
 
-        // Agregar todos los elementos al panel
-        // TODO completar
 
     }
 
@@ -48,8 +63,8 @@ public class PanelEditarRestaurante extends JPanel
      */
     public boolean getVisitado( )
     {
-        // TODO completar
-        return false;
+        String seleccionado = ( String )cbbVisitado.getSelectedItem( );
+        return "Si".equals( seleccionado );
     }
 
     /**
@@ -68,7 +83,6 @@ public class PanelEditarRestaurante extends JPanel
      */
     public String getNombre( )
     {
-        // TODO completar
-        return "";
+        return txtNombre.getText( );
     }
 }

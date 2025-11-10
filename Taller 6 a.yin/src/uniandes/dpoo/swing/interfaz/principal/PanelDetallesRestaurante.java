@@ -1,12 +1,15 @@
 package uniandes.dpoo.swing.interfaz.principal;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import uniandes.dpoo.swing.mundo.Restaurante;
 
@@ -28,20 +31,45 @@ public class PanelDetallesRestaurante extends JPanel
      */
     private JCheckBox chkVisitado;
 
-    public PanelDetallesRestaurante( )
-    {
-        // Configura la etiqueta para el nombre
-        // TODO completar el constructor
+    public PanelDetallesRestaurante() {
+	    setLayout(new BorderLayout());
+	
+		
+		JPanel panelCentro = new JPanel(new GridLayout(4, 1)); 
+		
+		// Nombre del restaurante
+		JLabel labNombre1 = new JLabel("Nombre:");
+		labNombre = new JLabel();
+		labNombre.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		// Calificación con estrellas
+		JLabel cal1 = new JLabel("Calificacion:");
+		labCalificacion = new JLabel();
+		
+		// Checkbox de visitado
+		JLabel vis1 = new JLabel("Visitado:");
+		chkVisitado = new JCheckBox();
+		chkVisitado.setEnabled(false);
+		
+		JPanel nombrePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		nombrePanel.add(labNombre1);
+		nombrePanel.add(labNombre);
+		
+		JPanel calificacionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		calificacionPanel.add(cal1);
+		calificacionPanel.add(labCalificacion);
+		
+		JPanel visitadoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		visitadoPanel.add(vis1);
+		visitadoPanel.add(chkVisitado);
+		
+		panelCentro.add(nombrePanel);
+		panelCentro.add(calificacionPanel);
+		panelCentro.add(visitadoPanel);
+		
+		add(panelCentro, BorderLayout.CENTER);
+	}
 
-        // Configura la etiqueta para la calificación
-        // TODO completar el constructor
-
-        // Configura el checkbox para indicar si ya se visitaó o no el restaurante
-        // TODO completar el constructor
-
-        // Organiza los elementos en la venta
-        // TODO completar el constructor
-    }
 
     /**
      * Actualiza los datos mostrados del restaurante, indicando los valores por separado.
@@ -49,10 +77,12 @@ public class PanelDetallesRestaurante extends JPanel
      * @param calificacion
      * @param visitado
      */
-    private void actualizarRestaurante( String nombre, int calificacion, boolean visitado )
-    {
-     // TODO completar actualizarRestaurante
+    private void actualizarRestaurante(String nombre, int calificacion, boolean visitado) {
+        labNombre.setText(nombre);
+        chkVisitado.setSelected(visitado);
+        labCalificacion.setIcon(buscarIconoCalificacion(calificacion));
     }
+
 
     /**
      * Actualiza los datos que se muestran de un restaurante
